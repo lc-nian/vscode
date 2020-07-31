@@ -1,0 +1,41 @@
+tp6 composer安装：
+1.composer create-project topthink/think tp（tp为项目名）
+2.进入tp目录 更新框架： composer update topthink/framework
+3.安装多应用模式扩展：composer require topthink/think-multi-app
+4.模板引擎安装：composer require topthink/think-view
+运行测试：php think run
+5.其余拓展：
+（1）安装jwt：composer require firebase/php-jwt
+
+composer中的php版本必须为7.1+
+composer官网：https://www.phpcomposer.com/
+接口文档网址：https://apizza.net/pro/#/
+thinkphp6.0完全开发手册：https://www.kancloud.cn/manual/thinkphp6_0/1037479
+
+layui框架源码：pulic/layui
+使用注意：
+1.css和js文件修改为__STATIC__前缀
+2.当前应用config中view.php添加如下代码
+    //定义__STATIC__
+    'tpl_replace_string' => [
+        '__STATIC__'=>'/static'
+    ],
+
+控制器：
+1.命名规范：首字母大写且加Controller后缀，需要在当前应用config中route.php开启控制器后缀 'controller_suffix'     => true,命名贴近功能且使用简洁英文
+2.路由定义，详情见app/admin/route/route.php
+3.对接收的参数进行验证。（使用验证器）
+4.书写主要逻辑
+5.用户id需加密返回前端，推荐使用JWT
+6.简单逻辑使用空行区别操作，复杂逻辑必须在空行前添加注释
+
+模型：
+1.模型使用try cacth，捕捉数据库异常，多层操作使用事务 //示例见admin/model/BaseModel.php
+2.控制器中实例化模型尽量避免重复实例化
+3.同一实例化多次调用save异常问题：
+4.书写主要数据库操作，避免过多逻辑
+
+数据库：
+1.数据库命名根据项目命名，表根据项目名加上前缀且加备注，字段避免拼音且使用简洁英文加注释。
+2.用户密码禁止使用明文
+
